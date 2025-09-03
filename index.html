@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ASV Labs LLP — Where Ideas Find Voice</title>
+<link rel="icon" href="ASVLABSLLP.PNG" type="image/png" />
+<style>
+  :root{
+    --brand:#0b3b70;
+    --text:#1b1b1b;
+    --muted:#d9ddff;
+    --line:#d9d9d9;
+    --bg1:#0b1f4e;
+    --bg2:#051234;
+    --bg3:#000a1e;
+    --cardA:rgba(255,255,255,0.72);
+    --cardB:rgba(255,255,255,0.60);
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Cambria, Georgia, serif;
+    color: var(--text);
+    background:
+      radial-gradient(1200px 800px at 20% 25%, #12306e, transparent 60%),
+      radial-gradient(900px 700px at 80% 10%, #0e2a63, transparent 55%),
+      radial-gradient(800px 800px at 60% 90%, #0a2457, transparent 55%),
+      linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 60%, var(--bg3) 100%);
+    overflow-x: hidden;
+  }
+  .stars-wrap {position: fixed; inset:0; z-index:0; pointer-events:none;}
+  .stars-wrap canvas {position:absolute; inset:0; width:100%; height:100%;}
+  .page { position: relative; z-index:1; display:flex; flex-direction:column; min-height:100vh; }
+  header { text-align:center; padding:40px 16px 20px; }
+  header img {max-width:180px; margin-bottom:12px;}
+  h1 {margin:0; font-size:clamp(26px,6vw,40px); color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.5);} 
+  .tagline {color:#fff; font-style:italic; margin-top:8px; text-shadow:0 1px 6px rgba(0,0,0,.55);} 
+  main {flex:1; max-width:980px; margin:0 auto 60px; padding:0 16px;}
+  .card {background:linear-gradient(165deg,var(--cardA),var(--cardB)); border:1px solid rgba(255,255,255,0.3); backdrop-filter:blur(12px) saturate(125%); border-radius:var(--radius); box-shadow:0 18px 60px rgba(0,0,0,.35); padding:24px; margin:28px 0;}
+  h2 {margin-top:0; color:var(--brand);}
+  footer {text-align:center; padding:20px; background:rgba(255,255,255,0.65); border-top:1px solid rgba(255,255,255,0.35);} 
+  footer img {max-height:40px; vertical-align:middle; margin-right:10px;}
+  footer span {font-weight:600; color:var(--brand);} 
+</style>
+</head>
+<body>
+  <div class="stars-wrap"><canvas id="starsBack"></canvas><canvas id="starsFront"></canvas></div>
+  <div class="page">
+    <header>
+      <img src="ASVLABSLLP.PNG" alt="ASV Labs LLP Logo" />
+      <h1>ASV Labs LLP</h1>
+      <div class="tagline">Where Ideas Find Voice</div>
+    </header>
+    <main>
+      <section class="card" id="about">
+        <h2>About Us</h2>
+        <p>ASV Labs LLP is a software research & development firm devoted to solving unique, often-ignored problems. We believe ideas choose people, and it becomes a solemn duty to bring them to life. Founded by <strong>Mrs. Dr. D S Mallika</strong> (academic, researcher, mother) and <strong>Mrs. Sowmya R</strong> (software professional, mother), ASV Labs blends research depth and technical expertise to create solutions that generate employment and unlock value.</p>
+      </section>
+      <section class="card" id="products">
+        <h2>Our Products</h2>
+        <ul>
+          <li><strong><a href="https://savemadi.com" target="_blank">SaveMadi</a></strong> – Live product with its own website.</li>
+          <li><strong>CVSmart</strong> – Coming Soon.</li>
+          <li><strong>A4</strong> – Coming Soon.</li>
+          <li><strong>PodMod</strong> – Coming Soon.</li>
+          <li><strong>AroundMe</strong> – Coming Soon.</li>
+        </ul>
+      </section>
+      <section class="card" id="careers">
+        <h2>Careers</h2>
+        <p>We ideate boldly and build carefully. If you're excited by under-explored problems, let's talk. We foster a flexible, family-first culture with small, senior teams where you can make real product impact.</p>
+        <p>Email us at <a href="mailto:asvlabs.llp@gmail.com">asvlabs.llp@gmail.com</a>.</p>
+      </section>
+      <section class="card" id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:asvlabs.llp@gmail.com">asvlabs.llp@gmail.com</a><br>Phone: +91-89048 18347<br>Location: Bengaluru, India</p>
+      </section>
+    </main>
+    <footer>
+      <img src="ASVLABSLLP.PNG" alt="ASV Labs LLP Logo" />
+      <span>ASV Labs LLP — Where Ideas Find Voice</span><br/>
+      <small>© <span id="yr"></span> ASV Labs LLP. All rights reserved.</small>
+    </footer>
+  </div>
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
+  function makeLayer(c,n,vmin,vmax,rmin,rmax,amin,amax){
+    const ctx=c.getContext('2d'); const s=[];
+    function rand(a,b){return a+Math.random()*(b-a);}
+    function resize(){
+      c.width=innerWidth*DPR; c.height=innerHeight*DPR; c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; s.length=0;
+      for(let i=0;i<n;i++) s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:rand(rmin,rmax)*DPR,a:rand(amin,amax),v:rand(vmin,vmax)*DPR,tw:rand(0.002,0.006)*(Math.random()<0.5?-1:1)});
+    }
+    function step(){ctx.clearRect(0,0,c.width,c.height);ctx.save();ctx.fillStyle='#fff'; for(const st of s){st.y+=st.v; if(st.y-st.r>c.height) st.y=-st.r; st.a+=st.tw; if(st.a>amax||st.a<amin) st.tw*=-1; ctx.globalAlpha=Math.max(amin,Math.min(amax,st.a)); ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,Math.PI*2); ctx.fill();}ctx.restore();requestAnimationFrame(step);} resize(); window.addEventListener('resize',resize); step(); }
+  makeLayer(document.getElementById('starsBack'),120,0.05,0.12,0.35,0.8,0.15,0.35);
+  makeLayer(document.getElementById('starsFront'),60,0.1,0.25,0.6,1.2,0.25,0.55);
+})();
+</script>
+</body>
+</html>
